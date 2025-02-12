@@ -19,16 +19,18 @@ body {
 
 body {
 	font: var(--text1regular);
-	background-color: #e2d5c8;
+	background-color: #b9d0c780;
+
+}
+.payment1{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
 .card {
 	background-color: var(--white);
 	border-radius: 20px;
-	height: 597px;
+	/* height: 597px; */
 	width: 360px;
 	padding: 30px;
 	box-sizing: border-box;
@@ -42,12 +44,12 @@ body {
 }
 
 h1 {
-	font: var(--heading1);
-	color: var(--black);
+	font: var(--heading1) !important;
+	color: var(--black) !important;
 }
 
 p {
-	font: var(--text2regular);
+	font: var(--text2regular) !important;
 }
 
 form {
