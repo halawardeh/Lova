@@ -1,0 +1,122 @@
+CREATE TABLE Users (
+    userID INT PRIMARY KEY IDENTITY(1,1),
+    fname NVARCHAR(50),
+    lname NVARCHAR(50),
+    email NVARCHAR(100),
+    phonenumber NVARCHAR(20),
+    gender NVARCHAR(10),
+    birthday DATE,
+    image NVARCHAR(255),
+    userType NVARCHAR(20) -- 'User', 'Store_Owner', 'Admin'
+);
+
+CREATE TABLE Store (
+    storeID INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(100),
+    description NVARCHAR(255),
+    location NVARCHAR(255),
+    image NVARCHAR(255),
+    ownerID INT,
+    FOREIGN KEY (ownerID) REFERENCES Users(userID)
+);
+
+CREATE TABLE Category (
+    categoryID INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(100),
+    image NVARCHAR(255),
+    storeID INT,
+    FOREIGN KEY (storeID) REFERENCES Store(storeID)
+);
+
+CREATE TABLE Product (
+    productID INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(100),
+    description NVARCHAR(255),
+    price DECIMAL(10,2),
+    quantity INT,
+    solds INT,
+    oldPrice DECIMAL(10,2),
+    availability BIT,
+    color NVARCHAR(50),
+    size NVARCHAR(50),
+    image NVARCHAR(255),
+    storeID INT,
+    categoryID INT,
+    FOREIGN KEY (storeID) REFERENCES Store(storeID),
+    FOREIGN KEY (categoryID) REFERENCES Category(categoryID)
+);
+
+CREATE TABLE Wishlist (
+    userID INT,
+    productID INT,
+    PRIMARY KEY (userID, productID),
+    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Cart (
+    userID INT,
+    productID INT,
+    quantity INT,
+    PRIMARY KEY (userID, productID),
+    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Orders (
+    orderID INT PRIMARY KEY IDENTITY(1,1),
+    userID INT,
+    productID INT,
+    quantity INT,
+    totalAmount DECIMAL(10,2),
+    orderDate DATE,
+    status NVARCHAR(50), -- مثل 'Pending', 'Completed', 'Cancelled'
+    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Review (
+    reviewID INT PRIMARY KEY IDENTITY(1,1),
+    userID INT,
+    productID INT,
+    comment NVARCHAR(255),
+    stars INT,
+    date DATE,
+    helpfulNumber INT,
+    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Tag (
+    tagID INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(100)
+);
+
+CREATE TABLE ProductTag (
+    productID INT,
+    tagID INT,
+    PRIMARY KEY (productID, tagID),
+    FOREIGN KEY (productID) REFERENCES Product(productID),
+    FOREIGN KEY (tagID) REFERENCES Tag(tagID)
+);
+
+CREATE TABLE Discounts (
+    discountID INT PRIMARY KEY IDENTITY(1,1),
+    storeID INT,
+    productID INT UNIQUE,
+    discountPercentage DECIMAL(5,2),
+    startDate DATE,
+    endDate DATE,
+    description NVARCHAR(255),
+    FOREIGN KEY (storeID) REFERENCES Store(storeID),
+    FOREIGN KEY (productID) REFERENCES Product(productID)
+);
+
+CREATE TABLE Notifications (
+    notificationID INT PRIMARY KEY IDENTITY(1,1),
+    userID INT,
+    message NVARCHAR(255),
+    isRead BIT,
+    date DATE,
+    FOREIGN KEY (userID) REFERENCES Users(userID)
+);
