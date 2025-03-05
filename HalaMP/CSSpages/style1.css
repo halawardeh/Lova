@@ -199,7 +199,7 @@ nav li:first-child {
 
 /* Home Start */
 #hero {
-    background-image: url(/img/sample-1.jpg);
+    background-image: url("https://i.pinimg.com/736x/43/b6/8e/43b68e2f552dab4aea03b19c26e9ab98.jpg");
     height: 90vh;
     width: 100%;
     background-position: top 25% right 0;
@@ -223,7 +223,7 @@ nav li:first-child {
 }
 
 #hero button {
-    background-image: url(/img/button.png);
+    background-image: url("https://i.pinimg.com/736x/43/b6/8e/43b68e2f552dab4aea03b19c26e9ab98.jpg");
     background-color: transparent;
     color: #088178;
     border: 0;
